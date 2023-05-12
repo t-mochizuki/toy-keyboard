@@ -18,7 +18,7 @@
         if (osc48) {
           osc48.stop();
         }
-        osc48 = new OscillatorNode(context);
+        osc48 = context.createOscillator();
         // C: 523.251
         osc48.frequency.setValueAtTime(523.251, context.currentTime);
         osc48.connect(context.destination);
@@ -29,7 +29,7 @@
         if (osc49) {
           osc49.stop();
         }
-        osc49 = new OscillatorNode(context);
+        osc49 = context.createOscillator();
         // A: 440
         osc49.frequency.setValueAtTime(440, context.currentTime);
         osc49.connect(context.destination);
