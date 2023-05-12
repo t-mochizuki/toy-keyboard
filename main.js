@@ -1,8 +1,8 @@
 (function () {
   // 0: 48
-  var osc48 = null;
+  let osc48 = null;
   // 1: 49
-  var osc49 = null;
+  let osc49 = null;
   window.addEventListener("DOMContentLoaded", () => {
     const body = document.querySelector('body');
 
@@ -13,7 +13,7 @@
 
       keyCode = event.keyCode;
       if (48 === keyCode) {
-        var context = new AudioContext();
+        let context = new AudioContext();
         // keyup event is lost when alt key is pressed.
         if (osc48) {
           osc48.stop();
@@ -24,7 +24,7 @@
         osc48.connect(context.destination);
         osc48.start();
       } else if (49 === keyCode) {
-        var context = new AudioContext();
+        let context = new AudioContext();
         // keyup event is lost when alt key is pressed.
         if (osc49) {
           osc49.stop();
