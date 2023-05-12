@@ -1,46 +1,57 @@
 (function () {
-  window.addEventListener("DOMContentLoaded", () => {
-    const context = new window.AudioContext();
+  const context = new window.AudioContext();
 
-    class Key {
-      constructor(frequency) {
-        this.osc = null;
-        this.frequency = frequency;
+  class Key {
+    constructor(frequency) {
+      this.osc = null;
+      this.frequency = frequency;
+    }
+
+    start() {
+      // keyup event is lost when alt key is pressed.
+      if (this.osc) {
+        this.osc.stop();
       }
+      this.osc = context.createOscillator();
+      this.osc.frequency.setValueAtTime(this.frequency, context.currentTime);
+      this.osc.connect(context.destination);
+      this.osc.start();
+    }
 
-      start() {
-        // keyup event is lost when alt key is pressed.
-        if (this.osc) {
-          this.osc.stop();
-        }
-        this.osc = context.createOscillator();
-        this.osc.frequency.setValueAtTime(this.frequency, context.currentTime);
-        this.osc.connect(context.destination);
-        this.osc.start();
-      }
-
-      stop() {
+    stop() {
+      if (this.osc) {
         this.osc.stop();
       }
     }
+  }
 
-    // 0: 48
-    const key48 = new Key(523.251);
-    // 1: 49
-    const key49 = new Key(440);
+  window.addEventListener("load", () => {
+    // keyCode to Key instance
+    const keys = new Map([
+      ["d", new Key(391.995)], // G4
+      ["r", new Key(415.305)], // G#4
+      ["f", new Key(440.000)], // A4
+      ["t", new Key(466.164)], // A#4
+      ["g", new Key(493.883)], // B4
+      ["h", new Key(523.251)], // C5
+      ["u", new Key(554.365)], // C#5
+      ["j", new Key(587.330)], // D5
+      ["i", new Key(622.254)], // D#5
+      ["k", new Key(659.255)], // E5
+      ["l", new Key(698.456)], // F5
+      ["p", new Key(739.989)], // F#5
+    ]);
 
-    const body = document.querySelector('body');
+    const body = document.querySelector("body");
 
     body.addEventListener("keydown", event => {
       if (event.isComposing || event.repeat || event.keyCode === 229) {
         return;
       }
 
-      keyCode = event.keyCode;
-      if (48 === keyCode) {
-        key48.start();
-      } else if (49 === keyCode) {
-        key49.start();
+      const key = event.key;
+      if (keys.has(key)) {
+        keys.get(key).start();
       }
     });
 
@@ -49,11 +60,9 @@
         return;
       }
 
-      keyCode = event.keyCode;
-      if (48 === keyCode) {
-        key48.stop();
-      } else if (49 === keyCode) {
-        key49.stop();
+      const key = event.key;
+      if (keys.has(key)) {
+        keys.get(key).stop();
       }
     });
   });
