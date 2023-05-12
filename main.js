@@ -1,42 +1,46 @@
 (function () {
-  // 0: 48
-  let osc48 = null;
-  // 1: 49
-  let osc49 = null;
   window.addEventListener("DOMContentLoaded", () => {
+    const context = new window.AudioContext();
+
+    class Key {
+      constructor(frequency) {
+        this.osc = null;
+        this.frequency = frequency;
+      }
+
+      start() {
+        // keyup event is lost when alt key is pressed.
+        if (this.osc) {
+          this.osc.stop();
+        }
+        this.osc = context.createOscillator();
+        this.osc.frequency.setValueAtTime(this.frequency, context.currentTime);
+        this.osc.connect(context.destination);
+        this.osc.start();
+      }
+
+      stop() {
+        this.osc.stop();
+      }
+    }
+
+    // 0: 48
+    const key48 = new Key(523.251);
+    // 1: 49
+    const key49 = new Key(440);
+
     const body = document.querySelector('body');
-    let context = null;
 
     body.addEventListener("keydown", event => {
       if (event.isComposing || event.repeat || event.keyCode === 229) {
         return;
       }
 
-      if (!context) {
-        context = new window.AudioContext();
-      }
-
       keyCode = event.keyCode;
       if (48 === keyCode) {
-        // keyup event is lost when alt key is pressed.
-        if (osc48) {
-          osc48.stop();
-        }
-        osc48 = context.createOscillator();
-        // C: 523.251
-        osc48.frequency.setValueAtTime(523.251, context.currentTime);
-        osc48.connect(context.destination);
-        osc48.start();
+        key48.start();
       } else if (49 === keyCode) {
-        // keyup event is lost when alt key is pressed.
-        if (osc49) {
-          osc49.stop();
-        }
-        osc49 = context.createOscillator();
-        // A: 440
-        osc49.frequency.setValueAtTime(440, context.currentTime);
-        osc49.connect(context.destination);
-        osc49.start();
+        key49.start();
       }
     });
 
@@ -47,9 +51,9 @@
 
       keyCode = event.keyCode;
       if (48 === keyCode) {
-        osc48.stop();
+        key48.stop();
       } else if (49 === keyCode) {
-        osc49.stop();
+        key49.stop();
       }
     });
   });
