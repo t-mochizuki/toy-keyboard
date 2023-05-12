@@ -1,2 +1,2 @@
-# toykey
-This is a miniature keyboard
+# toy keyboard
+This is a miniature keyboard.
