@@ -5,15 +5,19 @@
   let osc49 = null;
   window.addEventListener("DOMContentLoaded", () => {
     const body = document.querySelector('body');
+    let context = null;
 
     body.addEventListener("keydown", event => {
       if (event.isComposing || event.repeat || event.keyCode === 229) {
         return;
       }
 
+      if (!context) {
+        context = new window.AudioContext();
+      }
+
       keyCode = event.keyCode;
       if (48 === keyCode) {
-        let context = new AudioContext();
         // keyup event is lost when alt key is pressed.
         if (osc48) {
           osc48.stop();
@@ -24,7 +28,6 @@
         osc48.connect(context.destination);
         osc48.start();
       } else if (49 === keyCode) {
-        let context = new AudioContext();
         // keyup event is lost when alt key is pressed.
         if (osc49) {
           osc49.stop();
