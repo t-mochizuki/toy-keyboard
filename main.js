@@ -30,6 +30,8 @@ window.addEventListener("load", () => {
       }
 
       let keys = new Map([
+        ["s", new Key(349.228)], // F4
+        ["e", new Key(369.994)], // F#4
         ["d", new Key(391.995)], // G4
         ["r", new Key(415.305)], // G#4
         ["f", new Key(440.000)], // A4
