@@ -1,33 +1,30 @@
-(function () {
-  const context = new window.AudioContext();
-
-  class Key {
-    constructor(frequency) {
-      this.osc = null;
-      this.frequency = frequency;
-    }
-
-    start() {
-      // keyup event is lost when alt key is pressed.
-      if (this.osc) {
-        this.osc.stop();
+window.addEventListener("load", () => {
+  ((context) => {
+    class Key {
+      constructor(frequency) {
+        this.osc = null;
+        this.frequency = frequency;
       }
-      this.osc = context.createOscillator();
-      this.osc.frequency.setValueAtTime(this.frequency, context.currentTime);
-      this.osc.connect(context.destination);
-      this.osc.start();
-    }
 
-    stop() {
-      if (this.osc) {
-        this.osc.stop();
+      start() {
+        // keyup event is lost when alt key is pressed.
+        if (this.osc) {
+          this.osc.stop();
+        }
+        this.osc = context.createOscillator();
+        this.osc.frequency.setValueAtTime(this.frequency, context.currentTime);
+        this.osc.connect(context.destination);
+        this.osc.start();
+      }
+
+      stop() {
+        if (this.osc) {
+          this.osc.stop();
+        }
       }
     }
-  }
 
-  window.addEventListener("load", () => {
-    // keyCode to Key instance
-    const keys = new Map([
+    let keys = new Map([
       ["d", new Key(391.995)], // G4
       ["r", new Key(415.305)], // G#4
       ["f", new Key(440.000)], // A4
@@ -65,5 +62,5 @@
         keys.get(key).stop();
       }
     });
-  });
-})();
+  })(new window.AudioContext());
+});
