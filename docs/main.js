@@ -1,33 +1,9 @@
-window.addEventListener("load", () => {
-  (() => {
+(() => {
+  window.addEventListener("load", () => {
     const body = document.querySelector("body");
 
     body.addEventListener("click", () => {
       const context = new window.AudioContext();
-
-      class Key {
-        constructor(frequency) {
-          this.osc = null;
-          this.frequency = frequency;
-        }
-
-        start() {
-          // keyup event is lost when alt key is pressed.
-          if (this.osc) {
-            this.osc.stop();
-          }
-          this.osc = context.createOscillator();
-          this.osc.frequency.setValueAtTime(this.frequency, context.currentTime);
-          this.osc.connect(context.destination);
-          this.osc.start();
-        }
-
-        stop() {
-          if (this.osc) {
-            this.osc.stop();
-          }
-        }
-      }
 
       let keys = new Map([
         ["s", new Key(391.995)], // G4
@@ -53,7 +29,7 @@ window.addEventListener("load", () => {
 
         const key = event.key;
         if (keys.has(key)) {
-          keys.get(key).start();
+          keys.get(key).start(context);
         }
       });
 
@@ -68,5 +44,30 @@ window.addEventListener("load", () => {
         }
       });
     });
-  })();
-});
+  });
+
+  class Key {
+    constructor(frequency) {
+      this.osc = null;
+      this.frequency = frequency;
+    }
+
+    start(context) {
+      // keyup event is lost when alt key is pressed.
+      if (this.osc) {
+        this.osc.stop();
+      }
+      this.osc = context.createOscillator();
+      this.osc.frequency.setValueAtTime(this.frequency, context.currentTime);
+      this.osc.connect(context.destination);
+      this.osc.start();
+    }
+
+    stop() {
+      if (this.osc) {
+        this.osc.stop();
+      }
+    }
+  }
+
+})();
