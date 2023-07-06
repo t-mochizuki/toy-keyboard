@@ -2,25 +2,24 @@ h1 {
   text-align: center;
 }
 
-table {
-  margin-left: auto;
-  margin-right: auto;
+div.keyboard {
+  display: flex;
 }
 
-table tr td.white {
+div.white {
   background-color: beige;
   color: black;
 }
 
-table tr td.black {
+div.black {
   background-color: black;
   color: beige;
 }
 
-table tr td.white,
-table tr td.black {
+div.white,
+div.black {
   border-radius: 8%;
-  height: 80px;
+  height: 100px;
   width: 40px;
   text-align: center;
   vertical-align: middle;
