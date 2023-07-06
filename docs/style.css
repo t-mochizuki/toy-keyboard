@@ -4,6 +4,7 @@ h1 {
 
 div.keyboard {
   display: flex;
+  justify-content: center;
 }
 
 div.white {
