@@ -40,3 +40,16 @@ div.black {
   text-align: center;
   font-size: 29px;
 }
+
+div.black span,
+div.white span {
+  display: block;
+}
+
+div.black span {
+  padding-top: 60px;
+}
+
+div.white span {
+  padding-top: 160px;
+}
