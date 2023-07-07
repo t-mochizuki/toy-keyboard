@@ -8,12 +8,19 @@ div.keyboard {
 }
 
 div.white {
+  position: relative;
   background-color: beige;
   color: black;
   height: 140px;
   z-index: 1;
 }
 
+div.black > div.keyname,
+div.white > div.keyname {
+  position: absolute;
+  left: 15%;
+  bottom: 0;
+}
 
 div.space {
   color: beige;
@@ -24,6 +31,7 @@ div.space {
 }
 
 div.black {
+  position: relative;
   background-color: black;
   color: beige;
   height: 100px;
@@ -39,17 +47,4 @@ div.black {
   width: 30px;
   text-align: center;
   font-size: 29px;
-}
-
-div.black span,
-div.white span {
-  display: block;
-}
-
-div.black span {
-  padding-top: 60px;
-}
-
-div.white span {
-  padding-top: 100px;
 }
