@@ -32,6 +32,9 @@
         const key = event.key;
         if (keys.has(key)) {
           keys.get(key).start(context);
+
+          const keyElem = document.querySelector(`div.keyboard > div#${key}`);
+          keyElem.dataset.keyname = key;
         }
       });
 
@@ -42,6 +45,11 @@
 
         const key = event.key;
         if (keys.has(key)) {
+          const keyElem = document.querySelector(`div.keyboard > div#${key}`);
+          if (keyElem.dataset.keyname !== null) {
+            delete keyElem.dataset.keyname;
+          }
+
           keys.get(key).stop();
         }
       });

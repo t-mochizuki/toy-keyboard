@@ -48,3 +48,7 @@ div.black {
   text-align: center;
   font-size: 29px;
 }
+
+div[data-keyname] {
+  opacity: .15;
+}
