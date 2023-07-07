@@ -3,6 +3,8 @@
     const body = document.querySelector("body");
 
     body.addEventListener("click", () => {
+      console.log("Toy Keyboard");
+
       const context = new window.AudioContext();
 
       let keys = new Map([
@@ -43,7 +45,7 @@
           keys.get(key).stop();
         }
       });
-    });
+    }, { once: true });
   });
 
   class Key {
